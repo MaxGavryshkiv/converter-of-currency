@@ -2,7 +2,7 @@
   "name": "converter-of-currency",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/MaxGavryshkiv/converter-of-currency",
+  "homepage": "https://MaxGavryshkiv.github.io/converter-of-currency",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
