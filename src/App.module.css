@@ -1,0 +1,11 @@
+.main_form {
+  padding-top: 100px;
+  text-align: center;
+  border: 1px solid rgba(33, 33, 33, 0.2);
+  width: 700px;
+  height: 150px;
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+}
