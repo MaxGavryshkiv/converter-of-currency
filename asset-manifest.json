@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/MaxGavryshkiv/converter-of-currency/static/css/main.1c69e505.css",
-    "main.js": "/MaxGavryshkiv/converter-of-currency/static/js/main.25ed216f.js",
-    "index.html": "/MaxGavryshkiv/converter-of-currency/index.html",
-    "main.1c69e505.css.map": "/MaxGavryshkiv/converter-of-currency/static/css/main.1c69e505.css.map",
-    "main.25ed216f.js.map": "/MaxGavryshkiv/converter-of-currency/static/js/main.25ed216f.js.map"
+    "main.css": "/MaxGavryshkiv/converter-of-currency.git/static/css/main.1c69e505.css",
+    "main.js": "/MaxGavryshkiv/converter-of-currency.git/static/js/main.25ed216f.js",
+    "index.html": "/MaxGavryshkiv/converter-of-currency.git/index.html",
+    "main.1c69e505.css.map": "/MaxGavryshkiv/converter-of-currency.git/static/css/main.1c69e505.css.map",
+    "main.25ed216f.js.map": "/MaxGavryshkiv/converter-of-currency.git/static/js/main.25ed216f.js.map"
   },
   "entrypoints": [
     "static/css/main.1c69e505.css",
