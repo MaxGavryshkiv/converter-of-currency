@@ -1,19 +1,41 @@
 import React, { useEffect, useState } from "react";
+import { CurrencyAPI } from "./services/apis/CurrencyAPI";
 import Header from "./Header/Header.jsx";
 import CurrencyLabel from "./CurrencyLabel/CurrencyLabel.jsx";
 import styles from "./App.module.css";
 
-const BASE_URL = "https://api.apilayer.com/exchangerates_data/latest";
-
 function App() {
   const [usdCurrency, setUsdCurrency] = useState();
-  const [eurCurrency, setEurCurrency] = useState();
+  const [eurCurrency, setEurCurrency] = useState(null);
   const [currencySelectOptions, setCurrencySelectOptions] = useState([]);
   const [fromCurrency, setFromCurrency] = useState();
   const [toCurrency, setToCurrency] = useState();
   const [exchangeRate, setExchangeRate] = useState();
   const [amount, setAmount] = useState(1);
   const [amountInFromCurrency, setAmountInFromCurrency] = useState(true);
+
+  useEffect(() => {
+    CurrencyAPI.get("EUR").then((data) => {
+      const firstCurrency = Object.keys(data.rates)[0];
+      setCurrencySelectOptions([...Object.keys(data.rates)]);
+      setFromCurrency(data.base);
+      setToCurrency(firstCurrency);
+      setExchangeRate(data.rates[firstCurrency]);
+      setEurCurrency(data.rates["UAH"]);
+    });
+
+    CurrencyAPI.get("USD").then((data) => {
+      setUsdCurrency(data.rates["UAH"]);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (fromCurrency != null && toCurrency != null) {
+      CurrencyAPI.get(fromCurrency, toCurrency).then((data) => {
+        setExchangeRate(data.rates[toCurrency]);
+      });
+    }
+  }, [fromCurrency, toCurrency]);
 
   let toAmount, fromAmount;
   if (amountInFromCurrency) {
@@ -23,45 +45,6 @@ function App() {
     toAmount = amount;
     fromAmount = amount / exchangeRate;
   }
-
-  useEffect(() => {
-    fetch(`${BASE_URL}?base=EUR`, {
-      method: "GET",
-      redirect: "follow",
-      headers: { apikey: "rGlR1znoRYYeQNlv7OhvBqVN9gHCqnPk" },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const firstCurrency = Object.keys(data.rates)[0];
-        setCurrencySelectOptions([...Object.keys(data.rates)]);
-        setFromCurrency(data.base);
-        setToCurrency(firstCurrency);
-        setExchangeRate(data.rates[firstCurrency]);
-        setEurCurrency(data.rates["UAH"]);
-      });
-
-    fetch(`${BASE_URL}?base=USD`, {
-      method: "GET",
-      redirect: "follow",
-      headers: { apikey: "rGlR1znoRYYeQNlv7OhvBqVN9gHCqnPk" },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setUsdCurrency(data.rates["UAH"]);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (fromCurrency != null && toCurrency != null) {
-      fetch(`${BASE_URL}?base=${fromCurrency}&symbols=${toCurrency}`, {
-        method: "GET",
-        redirect: "follow",
-        headers: { apikey: "rGlR1znoRYYeQNlv7OhvBqVN9gHCqnPk" },
-      })
-        .then((res) => res.json())
-        .then((data) => setExchangeRate(data.rates[toCurrency]));
-    }
-  }, [fromCurrency, toCurrency]);
 
   function handleFromAmountChange(e) {
     setAmount(e.target.value);
